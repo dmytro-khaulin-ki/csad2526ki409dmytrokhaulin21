@@ -9,6 +9,17 @@ on:
     branches:
       - '*develop*'
       - '*master*'
+  workflow_dispatch:
+    inputs:
+      target_os:
+        description: "Select OS to build"
+        required: true
+        default: "ubuntu-latest"
+        type: choice
+        options:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
 
 jobs:
   cross_build:
@@ -27,7 +38,9 @@ jobs:
 
       - name: Run build script (Linux/macOS)
         if: runner.os != 'Windows'
-        run: bash ./ci.sh
+        run: |
+          chmod +x ./ci.sh
+          bash ./ci.sh
 
       - name: Run build script (Windows)
         if: runner.os == 'Windows'
