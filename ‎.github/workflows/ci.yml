@@ -9,6 +9,17 @@ on:
     branches:
       - '*develop*'
       - '*master*'
+ workflow_dispatch:
+  inputs:
+    target_os:
+      description: "Select OS to build"
+      required: true
+      default: "ubuntu-latest"
+      type: choice
+      options:
+        - ubuntu-latest
+        - windows-latest
+        - macos-latest
 
 jobs:
   cross_build:
